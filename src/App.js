@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useReadOTP } from "react-read-otp";
 
 const App = () => {
@@ -34,9 +34,11 @@ const App = () => {
       });
   };
 
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
+      <div style={{fontSize: '100px'}}>{otp}</div>
         Country Code:
         <input
           type="number"
