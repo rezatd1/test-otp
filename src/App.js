@@ -34,11 +34,15 @@ const App = () => {
       });
   };
 
+  useEffect(() => {
+    console.log('***otp', otp)
+  }, [otp])
+
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-      <div style={{fontSize: '100px'}}>{otp}</div>
+        <div style={{ fontSize: '100px' }}>{otp}</div>
         Country Code:
         <input
           type="number"
