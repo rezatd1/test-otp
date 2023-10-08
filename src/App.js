@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useReadOTP } from "react-read-otp";
+import React, { useState } from 'react';
+import { useReadOTP } from 'react-read-otp';
 
-const App = () => {
+function App() {
   const [otp, setOTP] = useState('');
-  useReadOTP(setOTP);
+  const stopReadingOTP = useReadOTP(setOTP);
   const [data, setData] = useState({
     countryCode: 98,
     mobileWithOutCountryCode: '9390753192',
   });
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,48 +21,30 @@ const App = () => {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        // Handle the response data
-        console.log(responseData);
+        const sms = responseData.sms;
+        const regex = /کد تأیید شما: (\d+)/;
+        const match = sms.match(regex);
+        const verificationCode = match ? match[1] : '';
+
+        setOTP(verificationCode);
       })
       .catch((error) => {
-        // Handle any error that occurred
         console.error(error);
       });
   };
 
-  useEffect(() => {
-    console.log('***otp',otp)
-  }, [otp])
-
+  const handleSkipReadingOTP = () => {
+    stopReadingOTP();
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <div style={{ fontSize: '100px' }}>{otp}</div>
-        Country Code:
-        <input
-          type="number"
-          name="countryCode"
-          value={data.countryCode}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Mobile Number:
-        <input
-          type="text"
-          name="mobileWithOutCountryCode"
-          value={data.mobileWithOutCountryCode}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <input placeholder="Enter otp" value={otp} onChange={e => setOTP(e.target.value)} />
-
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h3>Welcome home</h3>
+      <button onClick={handleSubmit}>Send OTP</button>
+      <input placeholder="Enter OTP" value={otp} onChange={(e) => setOTP(e.target.value)} />
+      Auto read OTP is enabled, <button onClick={handleSkipReadingOTP}>skip</button>
+    </div>
   );
-};
+}
 
 export default App;
