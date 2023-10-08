@@ -3,6 +3,7 @@ import { useReadOTP } from "react-read-otp";
 
 const App = () => {
   const [otp, setOTP] = useState('');
+  const [testData, setTestData] = useState('');
   useReadOTP(setOTP);
   const [data, setData] = useState({
     countryCode: 98,
@@ -34,14 +35,19 @@ const App = () => {
       });
   };
 
+  const otpSetter = () => {
+    setTestData(otp)
+  }
+
   useEffect(() => {
-    console.log('***otp', otp)
+    otpSetter();
   }, [otp])
 
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
+        <p style={{ fontSize: '100px' }}>{testData}</p>
         <div style={{ fontSize: '100px' }}>{otp}</div>
         Country Code:
         <input
