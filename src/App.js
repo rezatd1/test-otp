@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useReadOTP } from "react-read-otp";
-const [otp, setOTP] = useState('');
-useReadOTP(setOTP);
 
 const App = () => {
+  const [otp, setOTP] = useState('');
+  useReadOTP(setOTP);
   const [data, setData] = useState({
     countryCode: 98,
     mobileWithOutCountryCode: '9390753192',
