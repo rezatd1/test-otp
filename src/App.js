@@ -4,13 +4,14 @@ import { useReadOTP } from 'react-read-otp';
 function App() {
   const [otp, setOTP] = useState('');
   const stopReadingOTP = useReadOTP(setOTP);
-  const [data, setData] = useState({
-    countryCode: 98,
-    mobileWithOutCountryCode: '9390753192',
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const data = {
+      countryCode: 98,
+      mobileWithOutCountryCode: '9390753192',
+    }
 
     fetch('https://api.naghshealmas.com/api/fa/Account/SignUp/SendVerificationCodeForResetPassword', {
       method: 'POST',
