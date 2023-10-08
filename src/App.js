@@ -16,7 +16,7 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('http://172.17.17.101:8088/api/en/Account/SignUp/SendVerificationCodeForResetPassword', {
+    fetch('https://172.17.17.101:8088/api/en/Account/SignUp/SendVerificationCodeForResetPassword', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
