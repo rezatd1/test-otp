@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useReadOTP } from 'react-read-otp';
 
 function App() {
   const [otp, setOTP] = useState('');
-  const stopReadingOTP = useReadOTP(setOTP);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,16 +32,11 @@ function App() {
       });
   };
 
-  const handleSkipReadingOTP = () => {
-    stopReadingOTP();
-  };
-
   return (
     <div>
       <h3>Welcome home</h3>
       <button onClick={handleSubmit}>Send OTP</button>
       <input placeholder="Enter OTP" value={otp} onChange={(e) => setOTP(e.target.value)} />
-      Auto read OTP is enabled, <button onClick={handleSkipReadingOTP}>skip</button>
     </div>
   );
 }
