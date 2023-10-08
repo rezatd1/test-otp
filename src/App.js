@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useReadOTP } from "react-read-otp";
+const [otp, setOTP] = useState('');
+useReadOTP(setOTP);
 
 const App = () => {
   const [data, setData] = useState({
@@ -53,6 +56,8 @@ const App = () => {
         />
       </label>
       <br />
+      <input placeholder="Enter otp" value={otp} onChange={e => setOTP(e.target.value)} />
+
       <button type="submit">Submit</button>
     </form>
   );
