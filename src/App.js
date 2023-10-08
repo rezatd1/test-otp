@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { useReadOTP } from "react-read-otp";
 
 const App = () => {
+  const [enabled, setEnabled] = useState(false);
   const [otp, setOTP] = useState('');
-  useReadOTP(setOTP);
+  useReadOTP(setOTP, {
+    enabled
+  });
   const [data, setData] = useState({
     countryCode: 98,
     mobileWithOutCountryCode: '9390753192',
@@ -12,7 +15,6 @@ const App = () => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -33,6 +35,11 @@ const App = () => {
         console.error(error);
       });
   };
+
+  const handleSendOtp = () => {
+    handleSubmit()
+    setEnabled(true);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -58,7 +65,7 @@ const App = () => {
       <br />
       <input placeholder="Enter otp" value={otp} onChange={e => setOTP(e.target.value)} />
 
-      <button type="submit">Submit</button>
+      <button onClick={handleSendOtp} type="submit">sen otp</button>
     </form>
   );
 };
